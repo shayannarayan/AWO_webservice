@@ -3,10 +3,10 @@ package com.awo.app.domain.image;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 
 import com.awo.app.domain.registration.Registration;
 
@@ -16,8 +16,7 @@ public class Image implements Serializable {
 	private static final long serialVersionUID = -6473532570200791535L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int imgId;
+	private String imgId;
 
 	private String imgName;
 
@@ -30,41 +29,24 @@ public class Image implements Serializable {
 	private String createdDate;
 
 	private String modifiedDate;
+	
+/*	@OneToOne
+	@JoinColumn(name="regId")
+	private Registration registration;
 
-	private int regId;
-
-	public int getRegId() {
-		return regId;
-	}
-
-	public void setRegId(int regId) {
-		this.regId = regId;
+*/
+	private String regId;
+	
+	public void setImgId(String imgId) {
+		this.imgId = imgId;
 	}
 	
-
-
-	public Image() {
-		super();
-	}
-
-	public Image(int imgId, String imgName, String type, byte[] pic, String createdDate,
-			String modifiedDate, int regId) {
-		super();
-		this.imgId = imgId;
-		this.imgName = imgName;
-		this.type = type;
-		this.pic = pic;
-		this.createdDate = createdDate;
-		this.modifiedDate = modifiedDate;
-		this.regId = regId;
-	}
-
-	public int getImgId() {
+	public String getImgId() {
 		return imgId;
 	}
 
-	public void setImgId(int imgId) {
-		this.imgId = imgId;
+	public Image() {
+		super();
 	}
 
 	public String getImgName() {
@@ -82,7 +64,6 @@ public class Image implements Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
-
 
 	public byte[] getPic() {
 		return pic;
@@ -108,9 +89,21 @@ public class Image implements Serializable {
 		this.modifiedDate = modifiedDate;
 	}
 
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	/*public Registration getRegistration() {
+		return registration;
 	}
 
-}
+	public void setRegistration(Registration registration) {
+		this.registration = registration;
+	}*/
+
+	public String getRegId() {
+		return regId;
+	}
+
+	public void setRegId(String regId) {
+		this.regId = regId;
+	}
+
+
+	}

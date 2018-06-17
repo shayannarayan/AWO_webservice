@@ -1,6 +1,7 @@
 package com.awo.app.utils;
 
 import java.security.MessageDigest;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,6 +49,10 @@ public class CommonUtils {
 			return returnString;
 		}
 		
+	}
+	
+	public static String generateRandomId() {
+		return UUID.randomUUID().toString();
 	}
 	
 	public static Response getResponseObject(String message) {

@@ -7,6 +7,6 @@ public interface ImgDao {
 
 	Response saveImg(Image img);
 
-	Image getImg(int regId);
+	Image getImg(String regId);
 
 }

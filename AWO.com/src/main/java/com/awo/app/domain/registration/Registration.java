@@ -1,24 +1,28 @@
 package com.awo.app.domain.registration;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
-import com.awo.app.domain.image.Image;
+import com.awo.app.domain.address.Address;
+import com.awo.app.domain.login.Authentication;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Registration implements Serializable {
 	
 	private static final long serialVersionUID = -285581429968804879L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int regId;
+	private String regId;
 	
 	private String firstName;
 	
@@ -32,36 +36,37 @@ public class Registration implements Serializable {
 	
 	private int age;	
 	
+	private String ima_iba;
+	
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
+
+	@Enumerated(EnumType.STRING)
+	private Role role;
 	
-	private String street;
+	private boolean isActive;
+	//@JsonIgnore
+	@OneToMany(fetch=FetchType.EAGER,
+			cascade=CascadeType.ALL, mappedBy="registration")
+	private List<Address> address = new ArrayList<>();
 	
-	private String area;
-	
-	private String city;
-	
-	private String pincode;
-	
-	private Long phoneNumber;
-	
-	@Column(name="emailId", unique=true)
-	private String emailId;
-	
-	private String enterPassword;
-	
-	private String donatedBloodRecently;
+//	@JsonIgnore
+	@OneToOne(fetch=FetchType.EAGER,
+	cascade=CascadeType.ALL, mappedBy="registration")
+private Authentication authentication;
 	
 	
+	/*@OneToOne(fetch=FetchType.EAGER,
+			cascade=CascadeType.ALL, mappedBy="registration")
+	private Image image;*/
 
 	public Registration() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Registration(int regId, String firstName, String middleName, String lastName, String dob, String bloodGroup,
-			int age, Gender gender, String street, String area, String city, String pincode, Long phoneNumber,
-			String emailId, String enterPassword, String donatedBloodRecently) {
+	public Registration(String regId, String firstName, String middleName, String lastName, String dob, String bloodGroup,
+			int age, Gender gender, Role role, boolean isActive, List<Address> address, String ima_iba, Authentication authentication) {
 		super();
 		this.regId = regId;
 		this.firstName = firstName;
@@ -71,21 +76,21 @@ public class Registration implements Serializable {
 		this.bloodGroup = bloodGroup;
 		this.age = age;
 		this.gender = gender;
-		this.street = street;
-		this.area = area;
-		this.city = city;
-		this.pincode = pincode;
-		this.phoneNumber = phoneNumber;
-		this.emailId = emailId;
-		this.enterPassword = enterPassword;
-		this.donatedBloodRecently = donatedBloodRecently;
+		this.role = role;
+		this.isActive = isActive;
+		this.address = address;
+		this.ima_iba=ima_iba;
+		this.authentication=authentication;
+//		this.image = image;
 	}
 
-	public int getRegId() {
+	
+
+	public String getRegId() {
 		return regId;
 	}
 
-	public void setRegId(int regId) {
+	public void setRegId(String regId) {
 		this.regId = regId;
 	}
 
@@ -145,79 +150,59 @@ public class Registration implements Serializable {
 		this.gender = gender;
 	}
 
-	public String getStreet() {
-		return street;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setStreet(String street) {
-		this.street = street;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
-	public String getArea() {
-		return area;
+	public boolean isActive() {
+		return isActive;
 	}
 
-	public void setArea(String area) {
-		this.area = area;
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
-	public String getCity() {
-		return city;
+	public List<Address> getAddress() {
+		return address;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setAddress(List<Address> address) {
+		this.address = address;
+	}
+	
+/*	public Image getImage() {
+		return image;
 	}
 
-	public String getPincode() {
-		return pincode;
-	}
-
-	public void setPincode(String pincode) {
-		this.pincode = pincode;
-	}
-
-	public Long getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(Long phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public String getEmailId() {
-		return emailId;
-	}
-
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
-	}
-
-	public String getEnterPassword() {
-		return enterPassword;
-	}
-
-	public void setEnterPassword(String enterPassword) {
-		this.enterPassword = enterPassword;
-	}
-
-	public String getDonatedBloodRecently() {
-		return donatedBloodRecently;
-	}
-
-	public void setDonatedBloodRecently(String donatedBloodRecently) {
-		this.donatedBloodRecently = donatedBloodRecently;
-	}
+	public void setImage(Image image) {
+		this.image = image;
+	}*/
+	
+	
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
+	public String getIma_iba() {
+		return ima_iba;
+	}
 
-	
-	
-	
-	
-	
+	public void setIma_iba(String ima_iba) {
+		this.ima_iba = ima_iba;
+	}
 
-}
+	public Authentication getAuthentication() {
+		return authentication;
+	}
+	@JsonIgnore
+	public void setAuthentication(Authentication authentication) {
+		this.authentication = authentication;
+	}
+	
+	
+	}

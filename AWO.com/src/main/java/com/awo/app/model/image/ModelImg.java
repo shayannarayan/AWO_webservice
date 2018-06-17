@@ -8,7 +8,6 @@ public class ModelImg {
 
 	private String type;
 
-	private String length;
 
 	private byte[] pic;
 
@@ -16,7 +15,7 @@ public class ModelImg {
 
 	private String modifiedDate;
 
-	private int regId;
+	private String regId;
 
 	public int getImgId() {
 		return imgId;
@@ -42,17 +41,6 @@ public class ModelImg {
 		this.type = type;
 	}
 
-	
-
-	public String getLength() {
-		return length;
-	}
-
-	public void setLength(String length) {
-		this.length = length;
-	}
-
-	
 
 	public String getCreatedDate() {
 		return createdDate;
@@ -78,12 +66,23 @@ public class ModelImg {
 		this.modifiedDate = modifiedDate;
 	}
 
-	public int getRegId() {
+	public String getRegId() {
 		return regId;
 	}
 
-	public void setRegId(int regId) {
+	public void setRegId(String regId) {
 		this.regId = regId;
 	}
+	
+
+/*	public Registration getRegistration() {
+		return registration;
+	}
+
+	public void setRegistration(Registration registration) {
+		this.registration = registration;
+	}
+*/
+	
 
 }

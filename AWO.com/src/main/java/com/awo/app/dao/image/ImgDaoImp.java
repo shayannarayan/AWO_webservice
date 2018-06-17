@@ -35,7 +35,7 @@ public class ImgDaoImp implements ImgDao{
 	}
 
 	@Override
-	public Image getImg(int regId) {
+	public Image getImg(String regId) {
 		Response res = CommonUtils.getResponseObject("User/Donor Image");
 		try {
 			String hql = "FROM Image WHERE regId=:img";

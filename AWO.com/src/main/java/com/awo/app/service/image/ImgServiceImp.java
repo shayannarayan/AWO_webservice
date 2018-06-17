@@ -29,6 +29,7 @@ public class ImgServiceImp implements ImgService {
 		try {
 			Image img = new Image();
 			BeanUtils.copyProperties(mImg, img);
+			img.setImgId(CommonUtils.generateRandomId());
 			img.setImgName(file.getOriginalFilename());
 			img.setType(file.getContentType());
 			img.setRegId(mImg.getRegId());
@@ -52,12 +53,12 @@ public class ImgServiceImp implements ImgService {
 	}
 
 	@Override
-	public ModelImg getImg(int regId) {
+	public Image getImg(String regId) {
 		try {
 			Image img = imgDao.getImg(regId);
 			ModelImg Mimg = new ModelImg();
 			BeanUtils.copyProperties(img, Mimg);
-			return Mimg;
+			return img;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			return null;

@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.awo.app.constant.StatusCode;
+import com.awo.app.domain.image.Image;
+import com.awo.app.domain.registration.Registration;
 import com.awo.app.model.image.ModelImg;
 import com.awo.app.response.ErrorObject;
 import com.awo.app.response.Response;
@@ -31,7 +32,7 @@ public class ImgController {
 	private ImgService imgService;
 	
 	@PostMapping(value="/image")
-	public Response saveImg(@RequestParam("file") MultipartFile file, @RequestParam("regId") int regId, RedirectAttributes redirectAttributes) throws Exception{
+	public Response saveImg(@RequestParam("file") MultipartFile file, @RequestParam("regId") String regId, RedirectAttributes redirectAttributes) throws Exception{
 		logger.info("Save User/DonorImage :" + file);
 		if(file.isEmpty()) {
 			Response res = CommonUtils.getResponseObject("Upload Image Exception");
@@ -47,8 +48,8 @@ public class ImgController {
 	}
 	
 	@GetMapping(value="/image/{regId}")
-	public String getImg(@PathVariable("regId") int regId){
-		ModelImg img = null;
+	public String getImg(@PathVariable("regId") String regId){
+		Image img = null;
 		try {
 			img = imgService.getImg(regId);
 			File file = new File("F:\\img\\"+img.getImgName());

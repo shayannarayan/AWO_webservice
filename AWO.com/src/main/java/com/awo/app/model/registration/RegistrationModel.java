@@ -1,8 +1,12 @@
-package com.awo.app.model.registration;
+  package com.awo.app.model.registration;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 
 import com.awo.app.domain.registration.Gender;
+import com.awo.app.domain.registration.Role;
+import com.awo.app.model.address.AddrModel;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @JsonInclude(Include.NON_DEFAULT)
@@ -10,7 +14,7 @@ public class RegistrationModel implements Serializable {
 
 	private static final long serialVersionUID = -164331729043091013L;
 	
-	private int regId;
+	private String regId;
 
 	private String firstName;
 
@@ -26,39 +30,54 @@ public class RegistrationModel implements Serializable {
 
 	private Gender gender;
 
-	private String street;
-
-	private String area;
-
-	private String city;
-
-	private String pincode;
-
-	private Long phoneNumber;
-
-	private String emailId;
-
-	private String enterPassword;
-
-	private String donatedBloodRecently;
+	private Role role;
 	
-	public void setRegId(int regId) {
-		this.regId = regId;
-	}
-	public int getRegId() {
+//	private List<AddrModel> address;
+	
+	private String street;
+	
+	private String area;
+	
+	private String city;
+	
+	private String state;
+	
+	private String pincode;
+	
+	private String phone;
+	
+	private String mobile;
+	
+	private String emailId;
+	
+	private String website;
+	
+	private String dateAndTime;
+	
+	private String modifiedDateAndTime;
+	
+	private String ima_iba;
+	
+	private String userName;
+	
+	private String password;
+	
+	private String hint;
+
+	
+
+	public String getRegId() {
 		return regId;
+	}
+
+	public void setRegId(String regId) {
+		this.regId = regId;
 	}
 
 	public String getFirstName() {
 		return firstName;
 	}
 
-	public void setDob(String dob) {
-		this.dob = dob;
-	}
-	public String getDob() {
-		return dob;
-	}
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -79,7 +98,13 @@ public class RegistrationModel implements Serializable {
 		this.lastName = lastName;
 	}
 
-	
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
+	}
 
 	public String getBloodGroup() {
 		return bloodGroup;
@@ -105,6 +130,36 @@ public class RegistrationModel implements Serializable {
 		this.gender = gender;
 	}
 
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+/*
+	public List<AddrModel> getAddress() {
+		return address;
+	}
+
+	public void setAddress(List<AddrModel> address) {
+		this.address = address;
+	}
+
+	public Collection<AddrModel> getAddress() {
+		return address;
+	}
+
+	public void setAddress(Collection<AddrModel> address) {
+		this.address = address;
+	}*/
+
+	
+
+	
+	
+	
+
 	public String getStreet() {
 		return street;
 	}
@@ -129,6 +184,14 @@ public class RegistrationModel implements Serializable {
 		this.city = city;
 	}
 
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
 	public String getPincode() {
 		return pincode;
 	}
@@ -137,12 +200,20 @@ public class RegistrationModel implements Serializable {
 		this.pincode = pincode;
 	}
 
-	public Long getPhoneNumber() {
-		return phoneNumber;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setPhoneNumber(Long phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 
 	public String getEmailId() {
@@ -153,26 +224,68 @@ public class RegistrationModel implements Serializable {
 		this.emailId = emailId;
 	}
 
-	public String getEnterPassword() {
-		return enterPassword;
+	public String getWebsite() {
+		return website;
 	}
 
-	public void setEnterPassword(String enterPassword) {
-		this.enterPassword = enterPassword;
+	public void setWebsite(String website) {
+		this.website = website;
 	}
 
-	public String getDonatedBloodRecently() {
-		return donatedBloodRecently;
+	public String getDateAndTime() {
+		return dateAndTime;
 	}
 
-	public void setDonatedBloodRecently(String donatedBloodRecently) {
-		this.donatedBloodRecently = donatedBloodRecently;
+	public void setDateAndTime(String dateAndTime) {
+		this.dateAndTime = dateAndTime;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getModifiedDateAndTime() {
+		return modifiedDateAndTime;
 	}
 	
 	
 
+	public String getIma_iba() {
+		return ima_iba;
+	}
+
+	public void setIma_iba(String ima_iba) {
+		this.ima_iba = ima_iba;
+	}
+	
+	
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getHint() {
+		return hint;
+	}
+
+	public void setHint(String hint) {
+		this.hint = hint;
+	}
+
+	public void setModifiedDateAndTime(String modifiedDateAndTime) {
+		this.modifiedDateAndTime = modifiedDateAndTime;
+	}
+	
+	
+	
+
+	
 }
