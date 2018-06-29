@@ -1,8 +1,7 @@
 package com.awo.app.dao.registration;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +20,9 @@ import com.awo.app.dao.authentication.AuthDao;
 import com.awo.app.domain.authentication.Authentication;
 import com.awo.app.domain.registration.Registration;
 import com.awo.app.model.registration.RegistrationModel;
+import com.awo.app.requestRaise.domain.RequestRaise;
+import com.awo.app.requestRaise.domain.Status;
+import com.awo.app.response.ErrorObject;
 import com.awo.app.response.Response;
 import com.awo.app.utils.CommonUtils;
 
@@ -192,6 +194,67 @@ private List<String> unique(List<String> id) {
 		}catch(Exception e) {
 			logger.error("Exception ResetPassword:"+e.getMessage());
 			return StatusCode.ERROR.name();
+		}
+	}
+
+	@Override
+	public Response AddRequestRaise(RequestRaise req) {
+		Response response=CommonUtils.getResponseObject("Add requestRaise");
+		try{
+			entityManager.persist(req);
+			return response;
+		}
+		catch(Exception e){
+			response.setStatus(StatusCode.ERROR.name());
+			response.setMessage("Exception :" +e.getMessage());
+			logger.info("Exception in AddRequestRaise:"+e.getMessage());
+			return response;
+		}
+		
+	}
+
+	@Override
+	public List<RequestRaise> getAllRequest() {
+		Response res = CommonUtils.getResponseObject("Get All RequestRaise:");
+		try {
+			String hql ="FROM RequestRaise WHERE status IN :status";
+			List<RequestRaise> req = entityManager.createQuery(hql).setParameter("status", EnumSet.of(Status.OPEN, Status.INPROCESS)).getResultList();
+			System.out.println(req);
+			return req;
+		}catch(Exception e) {
+			logger.error("Exception in get All RequestRaise:"+e.getMessage());
+			return null;
+		}
+	}
+
+	@Override
+	public Response updateRequest(RequestRaise req) {
+		Response res = CommonUtils.getResponseObject("Updated RequestRaise:");
+		try {
+			RequestRaise reqR = getRequestById(req.getReqRId());
+			reqR.setStatus(req.getStatus());
+			entityManager.flush();
+			return res;
+		}catch(Exception e) {
+			logger.error("Exception in Updateting RequestRaise:"+e.getMessage());
+			ErrorObject err = CommonUtils.getErrorResponse("Exception", "Exception update RequestRaise");
+			res.setErrors(err);
+			res.setMessage("Exception :"+e.getMessage());
+			res.setStatus(StatusCode.ERROR.name());
+			return res;
+		}
+	}
+
+	private RequestRaise getRequestById(String reqRId) {
+		Response res = CommonUtils.getResponseObject("Get RequestRaise:");
+		try {
+			String hql ="FROM RequestRaise WHERE reqRId=:req";
+			RequestRaise req = (RequestRaise) entityManager.createQuery(hql).setParameter("req", reqRId).getSingleResult();
+			System.out.println(req);
+			return req;
+		}catch(Exception e) {
+			logger.error("Exception in get All RequestRaise:"+e.getMessage());
+			return null;
 		}
 	}
 		

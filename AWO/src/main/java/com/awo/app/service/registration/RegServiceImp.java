@@ -23,10 +23,13 @@ import com.awo.app.domain.registration.Registration;
 import com.awo.app.domain.registration.UpdatePassword;
 import com.awo.app.mapper.address.AddressMapper;
 import com.awo.app.mapper.registration.RegistrationMapper;
+import com.awo.app.mapper.requestRaise.RequestRaiseMapper;
 import com.awo.app.model.address.AddrModel;
 import com.awo.app.model.registration.AdminFilter;
 import com.awo.app.model.registration.RegAdr;
 import com.awo.app.model.registration.RegistrationModel;
+import com.awo.app.requestRaise.domain.RequestRaise;
+import com.awo.app.requestRaise.model.ModelRequest;
 import com.awo.app.response.ErrorObject;
 import com.awo.app.response.Response;
 import com.awo.app.servicee.address.AddrService;
@@ -68,6 +71,9 @@ public class RegServiceImp implements RegService {
 	
 	@Autowired
 	private SmtpMailSender mailSender;
+	
+	@Autowired
+	private RequestRaiseMapper Mapper;
 	
 	@Override
 	public Response saveReg(RegistrationModel model) {
@@ -241,8 +247,8 @@ public class RegServiceImp implements RegService {
 		if (id == null) {
 			return null;
 		} else {
-			Authentication auth = updateAuth(id);
 			RegAdr regM = getDetailsById(id);
+			Authentication auth = updateAuth(id);
 			return regM;
 		}
 	}
@@ -312,4 +318,51 @@ public class RegServiceImp implements RegService {
 		return null;
 	}
 
+
+	@Override
+	public Response AddRequestRaise(ModelRequest model) {
+		Response response = new Response();
+		try {
+			RequestRaise req =new RequestRaise();
+			BeanUtils.copyProperties(model, req);
+			req.setMobile(model.getMobile());
+			req.setReqRId(CommonUtils.generateRandomId());
+			req.setReqDateAndTime(DateUtility.getDateByStringFormat(new Date(), DateUtility.DATE_FORMAT_DD_MM_YYYY_HHMMSS));
+			response=regDao.AddRequestRaise(req);
+			return response;
+			}catch(Exception e) {
+				logger.error("Exception in AddRequest" +e.getMessage());
+				response.setMessage("Exception in AddRequest:" +e.getMessage());
+				return response;
+			}
+
+	}
+
+
+	@Override
+	public List<ModelRequest> getAllRequest() {
+		try {
+		List<RequestRaise> requset = regDao.getAllRequest();
+		return Mapper.entityList(requset);
+	}catch(Exception e) {
+		logger.info("Exception in Get AllRequest: "+e.getMessage());
+		return null;
+	}
+	}
+
+
+	@Override
+	public Response updateRequest(ModelRequest model) {
+		try {
+		RequestRaise req = new RequestRaise();
+		BeanUtils.copyProperties(model, req);
+		return regDao.updateRequest(req);
+		}catch(Exception e) {
+			logger.error("Exception in UpdateRequest:"+ e.getMessage());
+			Response res = new Response();
+			res.setStatus(StatusCode.ERROR.name());
+			res.setMessage(e.getMessage());
+			return res;
+		}
+	}
 }

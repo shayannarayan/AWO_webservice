@@ -6,6 +6,7 @@ import com.awo.app.domain.authentication.Authentication;
 import com.awo.app.domain.registration.Registration;
 import com.awo.app.model.registration.RegAdr;
 import com.awo.app.model.registration.RegistrationModel;
+import com.awo.app.requestRaise.domain.RequestRaise;
 import com.awo.app.response.Response;
 
 public interface RegDao {
@@ -27,5 +28,11 @@ public interface RegDao {
 	String isDonorExist(RegistrationModel model);
 
 	String resetPassword(String regId, String encriptString);
+
+	Response AddRequestRaise(RequestRaise req);
+
+	List<RequestRaise> getAllRequest();
+
+	Response updateRequest(RequestRaise req);
 
 }

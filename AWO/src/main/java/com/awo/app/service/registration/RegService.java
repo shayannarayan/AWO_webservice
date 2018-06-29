@@ -8,6 +8,7 @@ import com.awo.app.model.address.AddrModel;
 import com.awo.app.model.registration.AdminFilter;
 import com.awo.app.model.registration.RegAdr;
 import com.awo.app.model.registration.RegistrationModel;
+import com.awo.app.requestRaise.model.ModelRequest;
 import com.awo.app.response.Response;
 
 public interface RegService {
@@ -31,6 +32,12 @@ public interface RegService {
 	String changePassword(UpdatePassword model);
 
 	List<AdminFilter> getDetailByAreaAndPincode(RegistrationModel regAdr);
+
+	Response AddRequestRaise(ModelRequest model);
+
+	List<ModelRequest> getAllRequest();
+
+	Response updateRequest(ModelRequest model);
 
 //	List<RegAdr> getDetailsByfilter(String regId);
 

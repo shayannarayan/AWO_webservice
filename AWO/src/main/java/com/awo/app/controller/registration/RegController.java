@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +26,7 @@ import com.awo.app.domain.registration.UpdatePassword;
 import com.awo.app.model.registration.AdminFilter;
 import com.awo.app.model.registration.RegAdr;
 import com.awo.app.model.registration.RegistrationModel;
+import com.awo.app.requestRaise.model.ModelRequest;
 import com.awo.app.response.ErrorObject;
 import com.awo.app.response.Response;
 import com.awo.app.service.registration.RegService;
@@ -165,7 +168,7 @@ public class RegController {
 	
 	/*--------------------------------------DONORLOGIN ----------------------------------------------*/
 	
-	@PostMapping(value="/login")
+	@PostMapping(value="/login", produces = "application/json")
 	public @ResponseBody String authenticate(@RequestBody RegistrationModel model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		logger.info("authenticate User: Received request URL:"+ request.getRequestURL().toString()
